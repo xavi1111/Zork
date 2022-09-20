@@ -1,11 +1,16 @@
 #pragma once
 #ifndef __TextParser__
 #define __TextParser__
+#include <string>
+#include <vector>
+using namespace std;
 
 class TextParser 
 {
-	TextParser textParser();
-	void parseText();
+public:
+	TextParser();
+	vector<string> ParseText(const string& input);
+	void checkAction(const vector<string>& action);
 };
 
 #endif

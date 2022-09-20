@@ -5,7 +5,7 @@ class Player
 {
 public:
 
-	Player player();
+	Player();
 	void move();
 	bool canMove();
 	bool pickItem();
