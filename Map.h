@@ -3,7 +3,7 @@
 #define __Map__
 #include <string>
 #include "Room.h"
-
+using namespace std;
 class Map
 {
 public:

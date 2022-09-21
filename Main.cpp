@@ -11,13 +11,13 @@ int main()
 {
 	string input;
 	TextParser textParser;
-	Player player;
 	Map map;
+	Room room = map.getCurrentRoom();
+	Player player(&room);
 	cout <<  "Welcome to Stelar!\n" ;
 
 	while (1)
 	{
-		Room room = map.getCurrentRoom();
 		getline(cin, input);
 		vector<string> parsedText = textParser.ParseText(input);
 		if (parsedText.size() == 1 && _stricmp(parsedText[0].c_str(), "exit") == 0)
@@ -26,6 +26,7 @@ int main()
 		}
 		else
 			textParser.checkAction(parsedText, player, room);
+		room = map.getCurrentRoom();
 	}
 
 	cout << "\nThanks for playing!\n";

@@ -3,13 +3,17 @@
 #define __Player__
 
 #include <string>
+#include <vector>
+#include "Item.h"
+#include "Room.h"
+
 using namespace std;
 
 class Player
 {
 public:
 
-	Player();
+	Player(Room* currentRoom);
 	void move(const string& direction);
 	bool canMove(const string& direction);
 	void dropItem(const string& item);
@@ -22,6 +26,9 @@ public:
 	void getFrom(const string& item, const string& place);
 	void open(const string& thing, const string& item);
 	void attack(const string& enemy, const string& weapon);
+	void removeFromInventory(const string& itemName);
+	vector<Item> inventory;
+	Room* currentRoom;
 
 };
 #endif
