@@ -12,9 +12,12 @@ int main()
 	string input;
 	TextParser textParser;
 	Map map;
-	Room room = map.getCurrentRoom();
+	Room room = map.getFirstRoom();
 	Player player(&room);
+	player.map = map;
+
 	cout <<  "Welcome to Stelar!\n" ;
+	room.getInfo();
 
 	while (1)
 	{
@@ -25,8 +28,7 @@ int main()
 			break;
 		}
 		else
-			textParser.checkAction(parsedText, player, room);
-		room = map.getCurrentRoom();
+			textParser.checkAction(parsedText, player);
 	}
 
 	cout << "\nThanks for playing!\n";

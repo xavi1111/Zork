@@ -3,15 +3,18 @@
 
 using namespace std;
 
-Room::Room(string& description)
+Room::Room(string& name, string& description, vector<string>& possibleDirections, vector<string>& connectionType, vector<string>& roomNames)
 {
+	Room::name = name;
 	Room::description = description;
-	return;
+	Room::possibleDirections = possibleDirections;
+	Room::connectionType = connectionType;
+	Room::roomNames = roomNames;
 }
 
 void Room::getInfo()
 {
-	cout << description<<'\n';
+	cout << description << "\n";
 }
 
 void Room::addItemInRoom(Item& itemToAdd)

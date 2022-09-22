@@ -26,7 +26,7 @@ vector<string> TextParser::ParseText(const string& input)
 	return tokens;
 }
 
-void TextParser::checkAction(const vector<string>& action, Player& player, Room& room)
+void TextParser::checkAction(const vector<string>& action, Player& player)
 {
 	bool error = true;
 	if (action.size() == 1)
@@ -50,7 +50,7 @@ void TextParser::checkAction(const vector<string>& action, Player& player, Room&
 		}
 		else if (_stricmp(action[0].c_str(), "look") == 0)
 		{
-			room.getInfo();
+			player.currentRoom->getInfo();
 		}
 		else if (_stricmp(action[0].c_str(), "hello") == 0)
 		{

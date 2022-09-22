@@ -6,6 +6,7 @@
 #include <vector>
 #include "Item.h"
 #include "Room.h"
+#include "Map.h"
 
 using namespace std;
 
@@ -29,6 +30,7 @@ public:
 	void removeFromInventory(const string& itemName);
 	vector<Item> inventory;
 	Room* currentRoom;
+	Map map;
 
 };
 #endif
