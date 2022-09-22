@@ -22,11 +22,17 @@ void Player::move(const string& direction)
 			{
 				for (int j = 0; j < map.roomsInMap.size(); j++)
 				{
-					if (_stricmp(map.roomsInMap[j].name.c_str(), currentRoom->roomNames[i].c_str()) == 0)
+					if (_stricmp(map.roomsInMap[j].name.c_str(), currentRoom->roomNames[i].c_str()) == 0 && currentRoom->entranceLocked[i] == false)
 					{
 						cout << "You go through" << currentRoom->connectionType[i] << "\n";
 						currentRoom = &map.roomsInMap[j];
 						currentRoom->getInfo();
+						changedRoom = true;
+						break;
+					}
+					else if (currentRoom->entranceLocked[i] == true)
+					{
+						cout << "The " << currentRoom->itemBlocked[i] << " is blocked you need the following item: " << currentRoom->itemNeeded[i] << "\n";
 						changedRoom = true;
 						break;
 					}
@@ -112,11 +118,6 @@ void Player::examineItem(const string& item)
 	}
 }
 
-void Player::enter(const string& place) 
-{
-
-}
-
 void Player::putItem(const string& item, const string& place) 
 {
 
@@ -129,12 +130,34 @@ void Player::getFrom(const string& item, const string& place)
 
 void Player::open(const string& thing, const string& item) 
 {
+	bool itemFound = false;
+	bool blockedItemFound = false;
+	for (int i = 0; i < currentRoom->itemBlocked.size(); i++)
+	{
+		if (_stricmp(currentRoom->itemBlocked[i].c_str(), thing.c_str()) == 0)
+		{
+			for (int j = 0; j < inventory.size(); j++)
+			{
+				if (_stricmp(inventory[j].name.c_str(), item.c_str()) == 0 && _stricmp(inventory[j].name.c_str(), currentRoom->itemNeeded[i].c_str()) == 0)
+				{
+					currentRoom->entranceLocked[i] = false;
+					cout << "The " << currentRoom->itemBlocked[i] << " has been unlocked" << "\n";
+					itemFound = true;
+				}
+				else if (_stricmp(inventory[j].name.c_str(), item.c_str()) == 0 && _stricmp(inventory[j].name.c_str(), currentRoom->itemNeeded[i].c_str()) != 0)
+				{
+					cout << "This is not the needed item to open the "<< currentRoom->itemBlocked[i] << "\n";
+					itemFound = true;
+				}
 
-}
-
-void Player::attack(const string& enemy, const string& weapon) 
-{
-
+			}
+			if(!itemFound)
+				cout << "There is no such item in your inventory" << "\n";
+			blockedItemFound = true;
+		}
+	}
+	if (!blockedItemFound)
+		cout << "There is no such thing to unlock in this room" << "\n";
 }
 
 void Player::removeFromInventory(const string& itemName) 

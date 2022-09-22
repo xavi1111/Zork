@@ -86,10 +86,6 @@ void TextParser::checkAction(const vector<string>& action, Player& player)
 		{
 			player.dropItem(action[1]);
 		}
-		else if (_stricmp(action[0].c_str(), "enter") == 0)
-		{
-			player.enter(action[1]);
-		}
 		else
 			error = true;
 	}
@@ -108,13 +104,9 @@ void TextParser::checkAction(const vector<string>& action, Player& player)
 		{
 			player.open(action[1], action[2]);
 		}
-		else if (_stricmp(action[0].c_str(), "attack") == 0)
-		{
-			player.attack(action[1], action[2]);
-		}
 		else
 			error = true;
 	}
 	if(error)
-		cout << "Incorrect comand type 'comands' for a list of posible comands\n";
+		cout << "Incorrect comand type 'commands' for a list of posible comands\n";
 }

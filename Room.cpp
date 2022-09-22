@@ -3,13 +3,16 @@
 
 using namespace std;
 
-Room::Room(string& name, string& description, vector<string>& possibleDirections, vector<string>& connectionType, vector<string>& roomNames)
+Room::Room(string& name, string& description, vector<string>& possibleDirections, vector<string>& connectionType, vector<string>& roomNames, vector<bool>& entranceLocked, vector<string>& itemNeeded, vector<string>& itemBlocked)
 {
 	Room::name = name;
 	Room::description = description;
 	Room::possibleDirections = possibleDirections;
 	Room::connectionType = connectionType;
 	Room::roomNames = roomNames;
+	Room::entranceLocked = entranceLocked;
+	Room::itemNeeded = itemNeeded;
+	Room::itemBlocked = itemBlocked;
 }
 
 void Room::getInfo()
