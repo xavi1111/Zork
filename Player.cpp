@@ -211,6 +211,10 @@ void Player::interact()
 				}
 			}
 		}
+		else 
+		{
+			cout << "Incorrect password.\n";
+		}
 
 	}
 	else

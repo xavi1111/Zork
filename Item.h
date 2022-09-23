@@ -10,9 +10,10 @@ using namespace std;
 class Item
 {
 public:
-	Item(string& name, string& description);
+	Item(string& name, string& description, string& roomDescription);
 	void getDescription() const;
 	string name;
 	string description;
+	string roomDescription;
 };
 #endif

@@ -17,7 +17,14 @@ Room::Room(string& name, string& description, vector<string>& possibleDirections
 
 void Room::getInfo()
 {
-	cout << description << "\n";
+	cout << description;
+	for (int i = 0; i < itemsInRoom.size(); i++)
+	{
+		cout << " " << itemsInRoom[i].roomDescription;
+	}
+	if (hasBackpack)
+		cout << "You can see a backpack that can be useful for carrying more items.";
+	cout << "\n";
 }
 
 void Room::addItemInRoom(Item& itemToAdd)
