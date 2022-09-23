@@ -79,25 +79,29 @@ void Player::takeItem(const string& item)
 		}
 	}
 	else {
-		for (int i = 0; i<currentRoom->itemsInRoom.size(); i++) 
-		{
-			if (_stricmp(currentRoom->itemsInRoom[i].name.c_str(), item.c_str()) == 0)
+		if (inventory.size() < 2) {
+			for (int i = 0; i<currentRoom->itemsInRoom.size(); i++) 
 			{
-				Player::inventory.push_back(currentRoom->itemsInRoom[i]);
-				currentRoom->removeItemInRoom(currentRoom->itemsInRoom[i].name);
-				cout << "You picked up " << item << "\n";
-				noItemFound = false;
-			}
+				if (_stricmp(currentRoom->itemsInRoom[i].name.c_str(), item.c_str()) == 0)
+				{
+					Player::inventory.push_back(currentRoom->itemsInRoom[i]);
+					currentRoom->removeItemInRoom(currentRoom->itemsInRoom[i].name);
+					cout << "You picked up " << item << "\n";
+					noItemFound = false;
+				}
 		
+			}
+			if(noItemFound)
+				cout << "There is no such item in this room" << "\n";
 		}
-		if(noItemFound)
-			cout << "There is no such item in this room" << "\n";
-
+		else
+			cout << "You cannot pick more than 2 items at a time\n";
 	}
 }
 
 void Player::dropItem(const string& item) 
 {
+	bool notFound = true;
 	if (_stricmp("backpack", item.c_str()) == 0)
 	{
 		if (hasBackpack)
@@ -112,17 +116,18 @@ void Player::dropItem(const string& item)
 		}
 	}
 	else {
-		for (int i = 0; inventory.size(); i++)
+		for (int i = 0; i<inventory.size(); i++)
 		{
 			if (_stricmp(inventory[i].name.c_str(), item.c_str()) == 0)
 			{
 				currentRoom->addItemInRoom(inventory[i]);
 				removeFromInventory(inventory[i].name);
 				cout << "You droped " << item << "\n";
+				notFound = false;
 			}
-			else
-				cout << "There is no such item in your inventory" << "\n";
 		}
+		if(notFound)
+			cout << "There is no such item in your inventory" << "\n";
 	}
 }
 
@@ -178,25 +183,30 @@ void Player::putItem(const string& item, const string& place)
 
 void Player::getFrom(const string& item, const string& place) 
 {
-	bool noItemFound = true;
-	for (int i = 0; i < backpack->itemsInBag.size(); i++)
+	if (inventory.size() < 2) 
 	{
-		if (_stricmp(backpack->itemsInBag[i].name.c_str(), item.c_str()) == 0)
+		bool noItemFound = true;
+		for (int i = 0; i < backpack->itemsInBag.size(); i++)
 		{
-			if (_stricmp("backpack", place.c_str()) == 0 && hasBackpack)
+			if (_stricmp(backpack->itemsInBag[i].name.c_str(), item.c_str()) == 0)
 			{
-				inventory.push_back(backpack->itemsInBag[i]);
-				cout << "You put " << backpack->itemsInBag[i].name << " in your inventory\n";
-				backpack->removeItemFromBag(backpack->itemsInBag[i].name);
+				if (_stricmp("backpack", place.c_str()) == 0 && hasBackpack)
+				{
+					inventory.push_back(backpack->itemsInBag[i]);
+					cout << "You put " << backpack->itemsInBag[i].name << " in your inventory\n";
+					backpack->removeItemFromBag(backpack->itemsInBag[i].name);
+				}
+				else
+					cout << "You cannot place an item there\n";
+				noItemFound = false;
 			}
-			else
-				cout << "You cannot place an item there\n";
-			noItemFound = false;
-		}
 
+		}
+		if (noItemFound)
+			cout << "There is no such item in your Inventory" << "\n";
 	}
-	if (noItemFound)
-		cout << "There is no such item in your Inventory" << "\n";
+	else
+		cout << "You cannot pick more than 2 items at a time\n";
 }
 
 void Player::open(const string& thing, const string& item) 
