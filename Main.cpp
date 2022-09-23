@@ -12,12 +12,14 @@ int main()
 	string input;
 	TextParser textParser;
 	Map map;
-	Room room = map.getFirstRoom();
-	Player player(&room);
+	Player player;
 	player.map = map;
-
 	cout <<  "Welcome to Stelar!\n" ;
-	room.getInfo();
+	player.currentRoom->getInfo();
+	string name = "backpack";
+	string description = "The items in the backpack are : \n";
+	Backpack backpackAux(name, description);
+	player.backpack = &backpackAux;
 
 	while (1)
 	{

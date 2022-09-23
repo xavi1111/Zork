@@ -11,7 +11,6 @@ class Map
 {
 public:
 	Map();
-	Room getFirstRoom();
 	vector<Room> roomsInMap;
 };
 #endif

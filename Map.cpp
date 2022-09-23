@@ -4,21 +4,35 @@
 #include "Room.h"
 #include "Item.h"
 #include "Player.h"
+#include "Backpack.h"
 
 using namespace std;
 
 Map::Map()
 {
-	string roomName = "Cantine";
-	string description = "You find yourself in the cantine, it seems everybody left as quickly as possible, there is food rotting in the plates. There is a window you can see the darkness of space surrounding the spaceship. The room is well lit. You see a lighter and a pack cigarettes lying on a table.";
-	vector<string> possibleDirections = { "east", "north" };
-	vector<string> connectionType = { " a blody corridor", " a scratched corridor" };
-	vector<string> roomNames = { "Hibernation chamber", "Control room" };
-	vector<bool> entranceLocked = { false, true};
-	vector<string> itemNeded = { " ", "keycard" };
-	vector<string> itemBlocked = { " ", "door" };
+	string roomName = "Hibernation chamber";
+	string description = "You find yourself in a hibernation chamber, everybody around you is dead. The only source of light is the flickering lights of the room. You can see a wrench on the floor.";
+	vector<string> possibleDirections = { "west", "east" };
+	vector<string> connectionType = { " a blody corridor", " a pitch black corridor" };
+	vector<string> roomNames = { "Cantine", "Garbage Room" };
+	vector<bool> entranceLocked = { false, false };
+	vector<string> itemNeded = { " ", " " };
+	vector<string> itemBlocked = { " ", " " };
+	Room room6(roomName, description, possibleDirections, connectionType, roomNames, entranceLocked, itemNeded, itemBlocked);
+	string name = "wrench";
+	Item item7(name, description);
+	room6.addItemInRoom(item7);
+	roomsInMap.push_back(room6);
+	roomName = "Cantine";
+	description = "You find yourself in the cantine, it seems everybody left as quickly as possible, there is food rotting in the plates. There is a window you can see the darkness of space surrounding the spaceship. The room is well lit. You see a lighter and a pack cigarettes lying on a table.";
+	possibleDirections = { "east", "north" };
+	connectionType = { " a blody corridor", " a scratched corridor" };
+	roomNames = { "Hibernation chamber", "Control room" };
+	entranceLocked = { false, true};
+	itemNeded = { " ", "keycard" };
+	itemBlocked = { " ", "door" };
 	Room room(roomName, description, possibleDirections, connectionType, roomNames, entranceLocked, itemNeded, itemBlocked);
-	string name = "cigarettes";
+	name = "cigarettes";
 	Item item(name, description);
 	room.addItemInRoom(item);
 	name = "lighter";
@@ -63,9 +77,7 @@ Map::Map()
 	itemNeded = { " " };
 	itemBlocked = { " "};
 	Room room4(roomName, description, possibleDirections, connectionType, roomNames, entranceLocked, itemNeded, itemBlocked);
-	name = "backpack";
-	Item item6(name, description);
-	room4.addItemInRoom(item6);
+	room4.hasBackpack = true;
 	roomsInMap.push_back(room4);
 	roomName = "Control Room";
 	description = "You find yourself in the control room, everything seems to be working fine you could do something to eliminate the alien. You see the cremation button to dispose of the garbage but you need a password to use it.";
@@ -75,25 +87,6 @@ Map::Map()
 	entranceLocked = { false };
 	itemNeded = { " " };
 	itemBlocked = { " " };
-
 	Room room5(roomName, description, possibleDirections, connectionType, roomNames, entranceLocked, itemNeded, itemBlocked);
 	roomsInMap.push_back(room5);
-}
-
-Room Map::getFirstRoom()
-{
-	string roomName = "Hibernation chamber";
-	string description = "You find yourself in a hibernation chamber, everybody around you is dead. The only source of light is the flickering lights of the room. You can see a wrench on the floor.";
-	vector<string> possibleDirections = { "west", "east" };
-	vector<string> connectionType = { " a blody corridor", " a pitch black corridor" };
-	vector<string> roomNames = { "Cantine", "Garbage Room" };
-	vector<bool> entranceLocked= { false, false };
-	vector<string> itemNeded = { " ", " " };
-	vector<string> itemBlocked = { " ", " " };
-	Room room(roomName, description, possibleDirections, connectionType, roomNames, entranceLocked, itemNeded, itemBlocked);
-	string name = "wrench";
-	Item item(name, description);
-	room.addItemInRoom(item);
-	roomsInMap.push_back(room);
-	return room;
 }

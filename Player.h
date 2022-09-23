@@ -7,6 +7,7 @@
 #include "Item.h"
 #include "Room.h"
 #include "Map.h"
+#include "Backpack.h"
 
 using namespace std;
 
@@ -14,7 +15,7 @@ class Player
 {
 public:
 
-	Player(Room* currentRoom);
+	Player();
 	void move(const string& direction);
 	bool canMove(const string& direction);
 	void dropItem(const string& item);
@@ -29,6 +30,8 @@ public:
 	vector<Item> inventory;
 	Room* currentRoom;
 	Map map;
+	Backpack* backpack = NULL;
+	bool hasBackpack = false;
 
 };
 #endif

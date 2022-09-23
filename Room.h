@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "Item.h"
+#include "Backpack.h"
 
 using namespace std;
 
@@ -23,5 +24,6 @@ public:
 	vector<bool> entranceLocked;
 	vector<string> itemNeeded;
 	vector<string> itemBlocked;
+	bool hasBackpack = false;
 };
 #endif

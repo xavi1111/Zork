@@ -1,14 +1,18 @@
 #include <string>
+#include <vector>
 #include <iostream>
 #include "Player.h"
 #include "Room.h"
 #include "Map.h"
+#include "Item.h"
+#include "Backpack.h"
 
 using namespace std;
 
-Player::Player(Room* currentRoom) 
+Player::Player() 
 {
-	Player::currentRoom = currentRoom;
+	Player::currentRoom = &map.roomsInMap[0];
+	
 }
 
 void Player::move(const string& direction) 
@@ -61,33 +65,64 @@ bool Player::canMove(const string& direction)
 void Player::takeItem(const string& item) 
 {
 	bool noItemFound = true;
-	for (int i = 0; i<currentRoom->itemsInRoom.size(); i++) 
+	if (_stricmp("backpack", item.c_str()) == 0)
 	{
-		if (_stricmp(currentRoom->itemsInRoom[i].name.c_str(), item.c_str()) == 0)
+		if (currentRoom->hasBackpack)
 		{
-			Player::inventory.push_back(currentRoom->itemsInRoom[i]);
-			currentRoom->removeItemInRoom(currentRoom->itemsInRoom[i].name);
-			cout << "You picked up " << item << "\n";
-			noItemFound = false;
+			currentRoom->hasBackpack = false;
+			hasBackpack = true;
+			cout << "You picked up a backpack\n";
 		}
-		
+		else
+		{
+			cout << "There is no such item in this room" << "\n";
+		}
 	}
-	if(noItemFound)
-		cout << "There is no such item in this room" << "\n";
+	else {
+		for (int i = 0; i<currentRoom->itemsInRoom.size(); i++) 
+		{
+			if (_stricmp(currentRoom->itemsInRoom[i].name.c_str(), item.c_str()) == 0)
+			{
+				Player::inventory.push_back(currentRoom->itemsInRoom[i]);
+				currentRoom->removeItemInRoom(currentRoom->itemsInRoom[i].name);
+				cout << "You picked up " << item << "\n";
+				noItemFound = false;
+			}
+		
+		}
+		if(noItemFound)
+			cout << "There is no such item in this room" << "\n";
+
+	}
 }
 
 void Player::dropItem(const string& item) 
 {
-	for (int i = 0; inventory.size(); i++)
+	if (_stricmp("backpack", item.c_str()) == 0)
 	{
-		if (_stricmp(inventory[i].name.c_str(), item.c_str()) == 0)
+		if (hasBackpack)
 		{
-			currentRoom->addItemInRoom(inventory[i]);
-			removeFromInventory(inventory[i].name);
-			cout << "You droped " << item << "\n";
+			currentRoom->hasBackpack = true;
+			hasBackpack = false;
+			cout << "You droped a backapck\n";
 		}
 		else
-			cout << "There is no such item in this room" << "\n";
+		{
+			cout << "There is no such item in your inventory" << "\n";
+		}
+	}
+	else {
+		for (int i = 0; inventory.size(); i++)
+		{
+			if (_stricmp(inventory[i].name.c_str(), item.c_str()) == 0)
+			{
+				currentRoom->addItemInRoom(inventory[i]);
+				removeFromInventory(inventory[i].name);
+				cout << "You droped " << item << "\n";
+			}
+			else
+				cout << "There is no such item in your inventory" << "\n";
+		}
 	}
 }
 
@@ -120,12 +155,48 @@ void Player::examineItem(const string& item)
 
 void Player::putItem(const string& item, const string& place) 
 {
+	bool noItemFound = true;
+	for (int i = 0; i < inventory.size(); i++)
+	{
+		if (_stricmp(inventory[i].name.c_str(), item.c_str()) == 0)
+		{
+			if (_stricmp("backpack", place.c_str()) == 0 && hasBackpack)
+			{
+				backpack->addItemToBag(inventory[i]);
+				cout << "You put " << inventory[i].name << " in the backpack\n";
+				removeFromInventory(inventory[i].name);
+			}	
+			else
+				cout << "You cannot place an item there\n";
+			noItemFound = false;
+		}
 
+	}
+	if (noItemFound)
+		cout << "There is no such item in your Inventory" << "\n";
 }
 
 void Player::getFrom(const string& item, const string& place) 
 {
+	bool noItemFound = true;
+	for (int i = 0; i < backpack->itemsInBag.size(); i++)
+	{
+		if (_stricmp(backpack->itemsInBag[i].name.c_str(), item.c_str()) == 0)
+		{
+			if (_stricmp("backpack", place.c_str()) == 0 && hasBackpack)
+			{
+				inventory.push_back(backpack->itemsInBag[i]);
+				cout << "You put " << backpack->itemsInBag[i].name << " in your inventory\n";
+				backpack->removeItemFromBag(backpack->itemsInBag[i].name);
+			}
+			else
+				cout << "You cannot place an item there\n";
+			noItemFound = false;
+		}
 
+	}
+	if (noItemFound)
+		cout << "There is no such item in your Inventory" << "\n";
 }
 
 void Player::open(const string& thing, const string& item) 
