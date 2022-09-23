@@ -164,15 +164,75 @@ void Player::showInventory()
 
 void Player::examineItem(const string& item) 
 {
-	for (int i = 0; inventory.size(); i++)
+	bool notFound = true;
+	for (int i = 0; i<inventory.size(); i++)
 	{
 		if (_stricmp(inventory[i].name.c_str(), item.c_str()) == 0)
 		{
 			cout << inventory[i].description << "\n";
+			notFound = false;
 		}
-		else
-			cout << "There is no such item in your inventory" << "\n";
 	}
+	if(notFound)
+		cout << "There is no such item in your inventory" << "\n";
+}
+
+void Player::useItem(const string& item)
+{
+	bool notFound = true;
+	for (int i = 0; i<inventory.size(); i++)
+	{
+		if (_stricmp(inventory[i].name.c_str(), item.c_str()) == 0)
+		{
+			notFound = false;
+			if (_stricmp("wrench", item.c_str()) == 0) 
+			{
+				cout << "You look at the wrench, maybe you could open something with it." << "\n";
+			}
+			else if (_stricmp("lighter", item.c_str()) == 0)
+			{
+				cout << "You start playing with the lighter but stop fearing of emptying the gas." << "\n";
+			}
+			else if (_stricmp("cigarettes", item.c_str()) == 0)
+			{
+				bool lighterFound = false;
+				for (int j = 0; j<inventory.size(); j++)
+				{
+					if (_stricmp(inventory[j].name.c_str(), "lighter") == 0)
+					{
+						cout << "You light a cigarette and take a moment for yourself." << "\n";
+						lighterFound = true;
+					}
+				}
+				if (!lighterFound)
+					cout << "You need to have a lighter in your inventory. The backpack is not your inventory." << "\n";
+			}
+			else if (_stricmp("egg", item.c_str()) == 0)
+			{
+				cout << "You look at the egg, you can feel a creature inside it, maybe someone could help you figure out what to do with it" << "\n";
+			}
+			else if (_stricmp("keycard", item.c_str()) == 0)
+			{
+				cout << "You look at the keycard, maybe you could open something with it" << "\n";
+			}
+			else if (_stricmp("fireworks", item.c_str()) == 0)
+			{
+				bool lighterFound = false;
+				for (int j = 0; j<inventory.size(); j++)
+				{
+					if (_stricmp(inventory[j].name.c_str(), "lighter") == 0)
+					{
+						cout << "You light and throw a firework it makes a loud sound, maybe loud enough to scare the alien." << "\n";
+						lighterFound = true;
+					}
+				}
+				if(!lighterFound)
+					cout << "You need to have a lighter in your inventory. The backpack is not your inventory." << "\n";
+			}
+		}
+	}
+	if (notFound)
+		cout << "There is no such item in your inventory" << "\n";
 }
 
 void Player::putItem(const string& item, const string& place) 

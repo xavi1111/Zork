@@ -23,6 +23,7 @@ public:
 	void showInventory();
 	void takeItem(const string& item);
 	void examineItem(const string& item);
+	void useItem(const string& item);
 	void putItem(const string& item, const string& place);
 	void getFrom(const string& item, const string& place);
 	void open(const string& thing, const string& item);

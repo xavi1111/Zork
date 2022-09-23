@@ -78,6 +78,10 @@ void TextParser::checkAction(const vector<string>& action, Player& player)
 		{
 			player.examineItem(action[1]);
 		}
+		else if (_stricmp(action[0].c_str(), "use") == 0)
+		{
+			player.useItem(action[1]);
+		}
 		else if (_stricmp(action[0].c_str(), "drop") == 0)
 		{
 			player.dropItem(action[1]);
