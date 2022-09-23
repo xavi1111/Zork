@@ -78,6 +78,12 @@ Map::Map()
 	itemBlocked = { " "};
 	Room room4(roomName, description, possibleDirections, connectionType, roomNames, entranceLocked, itemNeded, itemBlocked);
 	room4.hasBackpack = true;
+	string robotName = "robot";
+	vector<string> answers = { "All the crew was killed by the alien I'm surprised that you are alive\n", "I hid here because i was to afraid to do anything\n", "The password for the incinerator is 2309\n" };
+	vector<string> possibleCommands = { "1", "2", "3" };
+	vector<string> keyWords = { "Crew", "You", "Password" };
+	NPC npc(robotName, answers, possibleCommands, keyWords);
+	room4.addNPC(npc);
 	roomsInMap.push_back(room4);
 	roomName = "Control Room";
 	description = "You find yourself in the control room, everything seems to be working fine you could do something to eliminate the alien. You see the cremation button to dispose of the garbage but you need a password to use it.";

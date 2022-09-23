@@ -131,9 +131,26 @@ void Player::dropItem(const string& item)
 	}
 }
 
-void Player::sayHello() 
+void Player::sayHello(const string& name)
 {
-
+	bool notFound = true;
+	if (currentRoom->npcsAvailable.size()>0) 
+	{
+		for (int i = 0; i < currentRoom->npcsAvailable.size(); i++)
+		{
+			if (_stricmp(currentRoom->npcsAvailable[i].name.c_str(), name.c_str()) == 0)
+			{
+				currentRoom->npcsAvailable[i].converstionLoop();
+				notFound = false;
+			}
+		}
+		if (notFound)
+			cout << "There is no such NPC in this room" << "\n";
+	}
+	else 
+	{
+		cout << "There is no one to say hello to\n";
+	}
 }
 
 void Player::showInventory() 

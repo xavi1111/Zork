@@ -5,6 +5,7 @@
 #include <vector>
 #include "Item.h"
 #include "Backpack.h"
+#include "NPC.h"
 
 using namespace std;
 
@@ -15,6 +16,8 @@ public:
 	void getInfo();
 	void addItemInRoom(Item& itemToAdd);
 	void removeItemInRoom(string& itemName);
+	void addNPC(NPC& npcToAdd);
+	void removeNPC(string& npcName);
 	string name;
 	string description;
 	vector<Item> itemsInRoom;
@@ -24,6 +27,7 @@ public:
 	vector<bool> entranceLocked;
 	vector<string> itemNeeded;
 	vector<string> itemBlocked;
+	vector<NPC> npcsAvailable;
 	bool hasBackpack = false;
 };
 #endif

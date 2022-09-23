@@ -37,3 +37,20 @@ void Room::removeItemInRoom(string& itemName)
 	}
 }
 
+void Room::addNPC(NPC& npcToAdd)
+{
+	npcsAvailable.push_back(npcToAdd);
+}
+
+void Room::removeNPC(string& npcName)
+{
+	for (int i = 0; i < npcsAvailable.size(); i++)
+	{
+		if (_stricmp(npcsAvailable[i].name.c_str(), npcName.c_str()) == 0)
+		{
+			npcsAvailable.erase(npcsAvailable.begin() + i);
+		}
+
+	}
+}
+

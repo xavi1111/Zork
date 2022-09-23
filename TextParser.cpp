@@ -52,10 +52,6 @@ void TextParser::checkAction(const vector<string>& action, Player& player)
 		{
 			player.currentRoom->getInfo();
 		}
-		else if (_stricmp(action[0].c_str(), "hello") == 0)
-		{
-			player.sayHello();
-		}
 		else if (_stricmp(action[0].c_str(), "inventory") == 0)
 		{
 			player.showInventory();
@@ -85,6 +81,10 @@ void TextParser::checkAction(const vector<string>& action, Player& player)
 		else if (_stricmp(action[0].c_str(), "drop") == 0)
 		{
 			player.dropItem(action[1]);
+		}
+		else if (_stricmp(action[0].c_str(), "hello") == 0)
+		{
+			player.sayHello(action[1]);
 		}
 		else
 			error = true;

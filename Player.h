@@ -19,7 +19,7 @@ public:
 	void move(const string& direction);
 	bool canMove(const string& direction);
 	void dropItem(const string& item);
-	void sayHello();
+	void sayHello(const string& name);
 	void showInventory();
 	void takeItem(const string& item);
 	void examineItem(const string& item);
