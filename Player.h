@@ -21,6 +21,7 @@ public:
 	void dropItem(const string& item);
 	void sayHello(const string& name);
 	void showInventory();
+	void interact();
 	void takeItem(const string& item);
 	void examineItem(const string& item);
 	void useItem(const string& item);
@@ -33,6 +34,7 @@ public:
 	Map map;
 	Backpack* backpack = NULL;
 	bool hasBackpack = false;
+	bool finishedGame = false;
 
 };
 #endif

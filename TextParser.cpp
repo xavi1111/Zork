@@ -56,6 +56,10 @@ void TextParser::checkAction(const vector<string>& action, Player& player)
 		{
 			player.showInventory();
 		}
+		else if (_stricmp(action[0].c_str(), "interact") == 0)
+		{
+			player.interact();
+		}
 		else if (_stricmp(action[0].c_str(), "commands") == 0)
 		{
 			cout << "The posible commands are: north / south / east / west / look / enter / hello / inventory / commands / exit / take X / move X / examine X / drop X / put X Y / get X Y / open X Y / attack X Y \n";

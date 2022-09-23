@@ -28,6 +28,8 @@ public:
 	vector<string> itemNeeded;
 	vector<string> itemBlocked;
 	vector<NPC> npcsAvailable;
+	bool hasEndingButton = false;
+	bool hasAlien = false;
 	bool hasBackpack = false;
 };
 #endif

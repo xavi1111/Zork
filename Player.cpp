@@ -162,6 +162,41 @@ void Player::showInventory()
 
 }
 
+void Player::interact()
+{
+	string password;
+	if (currentRoom->hasEndingButton) 
+	{
+		cout << "Please introduce password : \n";
+		cin >> password;
+		if (_stricmp(password.c_str(), "2309") == 0)
+		{
+			for (int i = 0; i < map.roomsInMap.size(); i++)
+			{
+				if (_stricmp(map.roomsInMap[i].name.c_str(), "Garbage room") == 0)
+				{
+					bool conditionsRequired = false;
+					for (int j = 0; j < map.roomsInMap[i].itemsInRoom.size(); j++)
+					{
+						if (_stricmp(map.roomsInMap[i].itemsInRoom[j].name.c_str(), "egg") == 0 && map.roomsInMap[i].hasAlien)
+						{
+							finishedGame = true;
+							cout << "You incinerate the alien and the last remaining egg you saved yourself now you can reach home safely.\n";
+							conditionsRequired = true;
+						}
+
+					}
+					if(!conditionsRequired)
+						cout << "Either the egg or the alien is not in the Garbage Room.\n";
+				}
+			}
+		}
+
+	}
+	else
+		cout << "There is nothing to interact with\n";
+}
+
 void Player::examineItem(const string& item) 
 {
 	bool notFound = true;

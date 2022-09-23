@@ -31,6 +31,9 @@ int main()
 		}
 		else
 			textParser.checkAction(parsedText, player);
+
+		if (player.finishedGame)
+			break;
 	}
 
 	cout << "\nThanks for playing!\n";
