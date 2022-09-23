@@ -35,6 +35,7 @@ public:
 	Backpack* backpack = NULL;
 	bool hasBackpack = false;
 	bool finishedGame = false;
+	bool alienIsNear = false;
 
 };
 #endif

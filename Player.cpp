@@ -31,7 +31,27 @@ void Player::move(const string& direction)
 						cout << "You go through" << currentRoom->connectionType[i] << "\n";
 						currentRoom = &map.roomsInMap[j];
 						currentRoom->getInfo();
+						bool showedText = false;
+						for(int k = 0; k < currentRoom->roomNames.size(); k++)
+						{
+							for (int l = 0; l < map.roomsInMap.size(); l++)
+							{
+								if (_stricmp(map.roomsInMap[l].name.c_str(), currentRoom->roomNames[k].c_str()) == 0 && map.roomsInMap[l].hasAlien)
+								{
+									cout << "You hear terifying sounds from the " << map.roomsInMap[l].name << ". You better shouldn't go that way.\n";
+									alienIsNear = true;
+									showedText = true;
+								}
+							}
+						}
+						if (!showedText)
+							alienIsNear = false;
 						changedRoom = true;
+						if (currentRoom->hasAlien)
+						{
+							cout << "You face the alien and tremble in fear. The alien kills you instantly.\n";
+							finishedGame = true;
+						}
 						break;
 					}
 					else if (currentRoom->entranceLocked[i] == true)
@@ -257,7 +277,21 @@ void Player::useItem(const string& item)
 				{
 					if (_stricmp(inventory[j].name.c_str(), "lighter") == 0)
 					{
-						cout << "You light and throw a firework it makes a loud sound, maybe loud enough to scare the alien." << "\n";
+						if (!alienIsNear) {
+							cout << "You light and throw a firework it makes a loud sound, maybe loud enough to scare the alien." << "\n";
+						}
+						else 
+						{
+							cout << "You light and throw a firework to the room where the sounds come from it appears the alien got scared and ran. It should be safe now." << "\n";
+							for (int k = 0; k < map.roomsInMap.size(); k++)
+							{
+								if (_stricmp("Cantine", map.roomsInMap[k].name.c_str()) == 0 || _stricmp("Nest", map.roomsInMap[k].name.c_str()) == 0)
+								{
+									map.roomsInMap[k].hasAlien = !map.roomsInMap[k].hasAlien;
+								}
+							}
+							alienIsNear = false;
+						}
 						lighterFound = true;
 					}
 				}
